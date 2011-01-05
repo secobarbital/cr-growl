@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      chrome.browserAction.onClicked.addListener(function(tab) {
+        chrome.tabs.executeScript(null, {code: "var p = document.createElement('p'); p.innerHTML = 'I AM BuzzGrowl!'; document.body.append(p);"});
+      });
+    </script>
+  </body>
+</html>

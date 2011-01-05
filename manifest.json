@@ -1,0 +1,18 @@
+{
+  "name": "BuzzGrowl",
+  "version": "1.0",
+  "description": "BuzzGrowl",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://gigaom.com/*"],
+      "js": ["buzzgrowl.js"]
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "http://thingbuzz.com/"
+  ]
+}
