@@ -1,12 +1,21 @@
-<!DOCTYPE html>
 <html>
-  <head>
-  </head>
-  <body>
-    <script>
-      chrome.browserAction.onClicked.addListener(function(tab) {
-        chrome.tabs.executeScript(null, {code: "var p = document.createElement('p'); p.innerHTML = 'I AM BuzzGrowl!'; document.body.append(p);"});
-      });
-    </script>
-  </body>
+<head>
+<script>
+  var current = 0;
+  function updateIcon() {
+    current = (current + 1) % 2;
+    chrome.browserAction.setIcon({path:"icon_" + current + ".png"});
+  }
+  chrome.browserAction.onClicked.addListener(updateIcon);
+  chrome.extension.onRequest.addListener(
+    function(request, sender, sendResponse) {
+      if (request.state == "current") {
+        sendResponse({state: current});
+      } else {
+        sendResponse({}); // snub them.
+      }
+  });
+  updateIcon();
+</script>
+</head>
 </html>

@@ -2,12 +2,11 @@
   "name": "BuzzGrowl",
   "version": "1.0",
   "description": "BuzzGrowl",
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
+  "background_page": "background.html",
+  "browser_action": {},
   "content_scripts": [
     {
-      "matches": ["http://gigaom.com/*"],
+      "matches": ["http://www.modcloth.com/*"],
       "js": ["buzzgrowl.js"]
     }
   ],
