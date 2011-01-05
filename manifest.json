@@ -6,7 +6,7 @@
   "browser_action": {},
   "content_scripts": [
     {
-      "matches": ["http://www.modcloth.com/*"],
+      "matches": ["http://*/*"],
       "js": ["buzzgrowl.js"]
     }
   ],
