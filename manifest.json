@@ -1,7 +1,7 @@
 {
-  "name": "BuzzGrowl",
+  "name": "BuzzGrowl by Thingbuzz",
   "version": "1.0",
-  "description": "BuzzGrowl",
+  "description": "Discover and discuss what's hot on any site via Twitter or Facebook.",
   "background_page": "background.html",
   "icons": {
     "16": "icon16.png",
