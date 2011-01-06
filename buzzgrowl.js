@@ -36,4 +36,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   sendResponse({});
 });
 
-chrome.extension.sendRequest({state: 'current'}, updateGrowl);
+var window_href = window.location.href;
+if(!/^http:\/\/twitter.com\/share/.test(window_href) && !/^http:\/\/www.facebook.com\/sharer.php/.test(window_href)) {
+  chrome.extension.sendRequest({state: 'current'}, updateGrowl);
+}
