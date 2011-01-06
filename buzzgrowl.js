@@ -1,30 +1,39 @@
 var script_url = 'http://thingbuzz.com/embed/buzz.js';
-var load = true;
 
-chrome.extension.sendRequest({state: "current"}, function(response) {
-  var scripts = document.getElementsByTagName("script");
-  for(i in scripts) {
-    if (scripts[i].src == script_url) {
-      load = false;
-      break;
+function newGrowl() {
+  var growl = document.createElement('script');
+  growl.innerHTML = 'new TBZZ.Growl()';
+  document.head.appendChild(growl);
+}
+
+function updateGrowl(response) {
+  if (response.state) {
+    var script_tags = document.getElementsByTagName('script');
+    for (var i=0; i<script_tags.length; i++) {
+      if (script_tags[i].src == script_url) {
+        if (!document.getElementsByClassName('buzz_growl').length) {
+          newGrowl();
+        }
+        break;
+      }
+    }
+    if (i == script_tags.length) {
+      var buzz = document.createElement('script');
+      buzz.src = script_url;
+      buzz.onload = newGrowl;
+      document.head.appendChild(buzz);
+    }
+  } else {
+    var growl_divs = document.getElementsByClassName('buzz_growl');
+    for (var i=0; i<growl_divs.length; i++) {
+      growl_divs[i].parentNode.removeChild(growl_divs[i]);
     }
   }
-  
-  if (response.state && load) {
-    var head = document.getElementsByTagName('head')[0];
-    function growl() {
-      var growl = document.createElement('script');
-      growl.innerHTML = 'new TBZZ.Growl()';
-      head.appendChild(growl);
-    }
-    
-    
-    var buzz = document.createElement('script');
-    buzz.src = script_url;
-    buzz.onload = growl;
-    head.appendChild(buzz);    
-  }
+}
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+  updateGrowl(request);
+  sendResponse({});
 });
 
-
-
+chrome.extension.sendRequest({state: 'current'}, updateGrowl);

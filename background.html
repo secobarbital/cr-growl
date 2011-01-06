@@ -1,21 +1,23 @@
 <html>
 <head>
 <script>
-  var current = 0;
   function updateIcon() {
     current = (current + 1) % 2;
     chrome.browserAction.setIcon({path:"icon_" + current + ".png"});
+    chrome.tabs.getSelected(null, function(tab) {
+      chrome.tabs.sendRequest(tab.id, {state: current});
+    });
   }
+
+  var current = 1;
   chrome.browserAction.onClicked.addListener(updateIcon);
-  chrome.extension.onRequest.addListener(
-    function(request, sender, sendResponse) {
-      if (request.state == "current") {
-        sendResponse({state: current});
-      } else {
-        sendResponse({}); // snub them.
-      }
+  chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    if (request.state == 'current') {
+      sendResponse({state: current});
+    } else {
+      sendResponse({}); // snub them.
+    }
   });
-  updateIcon();
 </script>
 </head>
 </html>
