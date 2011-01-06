@@ -11,7 +11,6 @@ chrome.extension.sendRequest({state: "current"}, function(response) {
   }
   
   if (response.state && load) {
-    console.log('loading script');
     var head = document.getElementsByTagName('head')[0];
     function growl() {
       var growl = document.createElement('script');
