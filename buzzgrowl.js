@@ -2,7 +2,7 @@ var script_url = 'http://thingbuzz.com/embed/buzz.js';
 
 function newGrowl() {
   var growl = document.createElement('script');
-  growl.innerHTML = 'new TBZZ.Growl({delay:0})';
+  growl.innerHTML = 'new TBZZ.Growl({delay:0, animation:"none"})';
   document.head.appendChild(growl);
 }
 
