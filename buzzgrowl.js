@@ -6,22 +6,26 @@ function newGrowl() {
   document.head.appendChild(growl);
 }
 
-function updateGrowl(response) {
-  if (response.state) {
-    var script_tags = document.getElementsByTagName('script');
-    for (var i=0; i<script_tags.length; i++) {
-      if (script_tags[i].src == script_url) {
-        if (!document.getElementsByClassName('buzz_growl').length) {
-          newGrowl();
-        }
-        break;
-      }
+function initGrowl(response) {
+  var script_tags = document.getElementsByTagName('script');
+  for (var i=0; i<script_tags.length; i++) {
+    if (script_tags[i].src == script_url) {
+      break;
     }
-    if (i == script_tags.length) {
-      var buzz = document.createElement('script');
-      buzz.src = script_url;
-      buzz.onload = newGrowl;
-      document.head.appendChild(buzz);
+  }
+  if (i == script_tags.length) {
+    var buzz = document.createElement('script');
+    buzz.src = script_url;
+    buzz.onload = newGrowl;
+    document.head.appendChild(buzz);
+    updateGrowl(response);
+  }
+}
+
+function updateGrowl(request) {
+  if (request.state) {
+    if (!document.getElementsByClassName('buzz_growl').length) {
+      newGrowl();
     }
   } else {
     var growl_divs = document.getElementsByClassName('buzz_growl');
@@ -37,5 +41,5 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 });
 
 if (!document.location.hostname.match(/(?:^|\.)(?:facebook|google|twitter)\.com$/)) {
-  chrome.extension.sendRequest({state: 'current'}, updateGrowl);
+  chrome.extension.sendRequest({state: 'current'}, initGrowl);
 }
