@@ -1,4 +1,21 @@
-var script_url = 'http://thingbuzz.com/embed/buzz.js';
+var buzz_js = 'http://thingbuzz.com/embed/buzz.js';
+
+function hasScript(script_url) {
+  var script_tags = document.getElementsByTagName('script');
+  for (var i=0; i<script_tags.length; i++) {
+    if (script_tags[i].src == script_url) {
+      break;
+    }
+  }
+  return (i < script_tags.length);
+}
+
+function injectScript(script_url) {
+  var buzz = document.createElement('script');
+  buzz.src = script_url;
+  buzz.onload = newGrowl;
+  document.head.appendChild(buzz);
+}
 
 function newGrowl() {
   var growl = document.createElement('script');
@@ -7,25 +24,19 @@ function newGrowl() {
 }
 
 function initGrowl(response) {
-  var script_tags = document.getElementsByTagName('script');
-  for (var i=0; i<script_tags.length; i++) {
-    if (script_tags[i].src == script_url) {
-      break;
-    }
-  }
-  if (i == script_tags.length) {
-    var buzz = document.createElement('script');
-    buzz.src = script_url;
-    buzz.onload = newGrowl;
-    document.head.appendChild(buzz);
+  if (response.state && !hasScript(buzz_js)) {
     updateGrowl(response);
   }
 }
 
 function updateGrowl(request) {
   if (request.state) {
-    if (!document.getElementsByClassName('buzz_growl').length) {
-      newGrowl();
+    if (hasScript(buzz_js)) {
+      if (!document.getElementsByClassName('buzz_growl').length) {
+        newGrowl();
+      }
+    } else {
+      injectScript(buzz_js);
     }
   } else {
     var growl_divs = document.getElementsByClassName('buzz_growl');
