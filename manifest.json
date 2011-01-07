@@ -1,7 +1,7 @@
 {
   "name": "BuzzGrowl",
   "version": "1.0",
-  "description": "Discover and discuss what's hot on any site via Twitter or Facebook as you surf.",
+  "description": "Discover and discuss what's hot on any site via Twitter or Facebook as you browse the web.",
   "background_page": "background.html",
   "icons": {
     "16": "icon16.png",
