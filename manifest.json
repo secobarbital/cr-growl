@@ -2,23 +2,24 @@
   "name": "BuzzGrowl",
   "version": "1.0",
   "description": "Discover and discuss what's hot on any site via Twitter or Facebook as you browse the web.",
-  "background_page": "background.html",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
   "browser_action": {
-    "default_icon": "icon_1.png"
+    "default_icon": "icon_1.png",
+    "default_title": "BuzzGrowl"
   },
+  "background_page": "background.html",
   "content_scripts": [
     {
       "matches": ["http://*/*"],
       "js": ["buzzgrowl.js"]
     }
   ],
+  "homepage_url": "http://buzzgrowl.com/",
   "permissions": [
-    "tabs",
-    "http://thingbuzz.com/"
+    "tabs"
   ]
 }
