@@ -3,7 +3,7 @@
 <script>
   function updateIcon() {
     current = (current + 1) % 2;
-    chrome.browserAction.setIcon({path:"icon_" + current + ".png"});
+    chrome.browserAction.setIcon({path: 'icon_' + current + '.png'});
     chrome.tabs.getSelected(null, function(tab) {
       chrome.tabs.sendRequest(tab.id, {state: current});
     });

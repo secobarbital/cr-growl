@@ -2,7 +2,7 @@ var script_url = 'http://thingbuzz.com/embed/buzz.js';
 
 function newGrowl() {
   var growl = document.createElement('script');
-  growl.innerHTML = 'new TBZZ.Growl({delay:0, animation:"none"})';
+  growl.innerHTML = 'new TBZZ.Growl({delay: 0, animation: "none"})';
   document.head.appendChild(growl);
 }
 
@@ -36,7 +36,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   sendResponse({});
 });
 
-var window_href = window.location.href;
-if(!/^http:\/\/twitter.com\/share/.test(window_href) && !/^http:\/\/www.facebook.com\/sharer.php/.test(window_href)) {
+if (!document.location.hostname.match(/(?:^|\.)(?:facebook|twitter)\.com$/)) {
   chrome.extension.sendRequest({state: 'current'}, updateGrowl);
 }
