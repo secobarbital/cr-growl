@@ -36,6 +36,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   sendResponse({});
 });
 
-if (!document.location.hostname.match(/(?:^|\.)(?:facebook|twitter)\.com$/)) {
+if (!document.location.hostname.match(/(?:^|\.)(?:facebook|google|twitter)\.com$/)) {
   chrome.extension.sendRequest({state: 'current'}, updateGrowl);
 }
