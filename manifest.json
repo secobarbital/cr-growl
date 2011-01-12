@@ -1,6 +1,6 @@
 {
-  "name": "BuzzGrowl",
-  "version": "1.0",
+  "name": "BuzzGrowl for Twitter and Facebook",
+  "version": "1.1",
   "description": "Discover and discuss what's hot on any site via Twitter or Facebook as you browse the web.",
   "icons": {
     "16": "icon16.png",
