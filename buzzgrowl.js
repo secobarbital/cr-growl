@@ -19,7 +19,7 @@ function injectScript(script_url) {
 
 function newGrowl() {
   var growl = document.createElement('script');
-  growl.innerHTML = 'new TBZZ.Growl({delay: 0, animation: "none"})';
+  growl.innerHTML = "new TBZZ.Growl({token: '2313d3858ac9077e1429906d12fd57b1'})";
   document.head.appendChild(growl);
 }
 
