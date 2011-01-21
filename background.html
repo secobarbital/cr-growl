@@ -1,23 +1,58 @@
 <html>
 <head>
 <script>
-  function updateIcon() {
-    current = (current + 1) % 2;
-    chrome.browserAction.setIcon({path: 'icon_' + current + '.png'});
+  function updateIcon(state) {
+    chrome.browserAction.setIcon({path: 'icon_' + state + '.png'});
     chrome.tabs.getSelected(null, function(tab) {
-      chrome.tabs.sendRequest(tab.id, {state: current});
+      chrome.tabs.sendRequest(tab.id, {state: state});
     });
   }
 
-  var current = 1;
-  chrome.browserAction.onClicked.addListener(updateIcon);
+  function toggleState() {
+    enabled = (enabled + 1) % 2;
+    updateIcon(enabled);
+    localStorage['enabled'] = enabled;
+  }
+
+  var enabled = localStorage['enabled'] || 1;
+  updateIcon(enabled);
+  chrome.browserAction.onClicked.addListener(toggleState);
   chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.state == 'current') {
-      sendResponse({state: current});
+      sendResponse({state: enabled});
     } else {
-      sendResponse({}); // snub them.
+      sendResponse({});
     }
   });
+
+  // http://stackoverflow.com/questions/2399389/chrome-extension-first-run
+  function onInstall() {
+    console.log('Extension installed')
+  }
+
+  function onUpdate() {
+    console.log('Extension updated')
+  }
+
+  function getVersion() {
+    var version = 'NaN';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', chrome.extension.getURL('manifest.json'), false);
+    xhr.send(null);
+    var manifest = JSON.parse(xhr.responseText);
+    return manifest.version;
+  }
+
+  var currVersion = getVersion();
+  var prevVersion = localStorage['version'];
+  if (currVersion != prevVersion) {
+    if (typeof prevVersion == 'undefined') {
+      onInstall();
+    } else {
+      onUpdate();
+    }
+    localStorage['version'] = currVersion;
+  }
 </script>
 </head>
 </html>
