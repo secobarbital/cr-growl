@@ -14,7 +14,7 @@
     localStorage['enabled'] = enabled;
   }
 
-  var enabled = localStorage['enabled'] || 1;
+  var enabled = parseInt(localStorage['enabled'] || '1');
   updateIcon(enabled);
   chrome.browserAction.onClicked.addListener(toggleState);
   chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
