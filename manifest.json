@@ -1,7 +1,7 @@
 {
   "name": "BuzzGrowl for Twitter and Facebook",
   "version": "1.2",
-  "description": "See what others are saying about the site you're on. Fast and easy way to tweet, retweet and share to Facebook.",
+  "description": "See what others are saying about the site you're on. Fast and easy way to tweet, retweet and share to Facebook, from any web page.",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
