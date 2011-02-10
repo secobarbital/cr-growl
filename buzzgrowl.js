@@ -1,5 +1,6 @@
 var buzz_js = 'http://buzzgrowl.com/embed/buzz.js';
 var old_buzz_js = 'http://thingbuzz.com/embed/buzz.js';
+
 function hasScript(script_url) {
   var script_tags = document.getElementsByTagName('script');
   for (var i=0; i<script_tags.length; i++) {
@@ -31,7 +32,7 @@ function initGrowl(response) {
 
 function updateGrowl(request) {
   if (request.state) {
-    if (hasScript(buzz_js)) {
+    if (hasScript(buzz_js) || hasScript(old_buzz_js)) {
       if (!document.getElementsByClassName('buzz_growl').length) {
         newGrowl();
       }
