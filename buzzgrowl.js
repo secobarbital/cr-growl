@@ -4,7 +4,7 @@ var old_buzz_js = 'http://thingbuzz.com/embed/buzz.js';
 function hasScript(script_url) {
   var script_tags = document.getElementsByTagName('script');
   for (var i=0; i<script_tags.length; i++) {
-    if (script_tags[i].src == script_url) {
+    if (!script_tags[i].src.indexOf(script_url)) {
       break;
     }
   }
