@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <script>
@@ -26,7 +27,9 @@
   });
 
   // http://stackoverflow.com/questions/2399389/chrome-extension-first-run
-  function onInstall() {}
+  function onInstall() {
+    chrome.tabs.create({url: 'http://buzzgrowl.com/leaderboard#welcome'});
+  }
 
   function onUpdate() {}
 
@@ -50,5 +53,16 @@
     localStorage['version'] = currVersion;
   }
 </script>
+ <script>
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-10579921-6']);
+   _gaq.push(['_trackPageview']);
+
+   (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = 'https://ssl.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+   })();
+ </script>
 </head>
 </html>
